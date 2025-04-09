@@ -16,7 +16,7 @@ async function getTodos() {
   // 新しいToDoをサーバーに追加する関数
   async function addTodo() {
     const newTodo = document.getElementById('new-todo').value;  // 入力値を取得
-    if (newTodo === '') return;  // 空欄の場合は何もしない
+    if (newTodo === '') return;
   
     await fetch('/todos', {
       method: 'POST',
@@ -32,3 +32,10 @@ async function getTodos() {
   
   // ページ読み込み時にToDoリストを取得して表示
   window.onload = getTodos;
+
+  // EnterキーでaddTodoを呼び出す
+  document.getElementById('new-todo').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' && !event.isComposing) {
+      addTodo();
+    }
+  });
